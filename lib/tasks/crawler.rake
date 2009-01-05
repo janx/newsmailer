@@ -5,7 +5,7 @@ namespace :crawler do
       puts "Fetching #{feed.name} ..."
       begin
         result = FeedParser.parse feed.url
-        time_ary = result.modified_at || result.channel.updated_parsed
+        time_ary = result.modified || result.channel.updated_parsed
         modified_at = Time.utc(*time_ary[0,8])
         next if feed.modified_at && feed.modified_at >= modified_at
 
