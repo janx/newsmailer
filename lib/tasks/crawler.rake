@@ -11,13 +11,13 @@ namespace :crawler do
           $result = FeedParser.parse feed.url
         end
 
-        next if result.status == '404'
+        next if $result.status == '404'
 
-        time_ary = result.modified || result.channel.updated_parsed
+        time_ary = $result.modified || $result.channel.updated_parsed
         modified_at = time_ary && Time.utc(*time_ary[0,8])
         next if !modified_at.nil? && feed.modified_at && feed.modified_at >= modified_at
 
-        for item in result.items
+        for item in $result.items
           if item.summary_detail
             # rss 2.0
             content = item.summary_detail.value
@@ -41,7 +41,7 @@ namespace :crawler do
         end
         # update feed modify time and save
         feed.modified_at = modified_at
-        feed.name = result.channel.title
+        feed.name = $result.channel.title
         feed.save
       rescue Timeout::Error
         puts "Timeout when fetching feed #{feed.url}"
