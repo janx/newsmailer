@@ -1,4 +1,18 @@
 ActionController::Routing::Routes.draw do |map|
+
+  map.root :controller => 'readers', :action => 'show'
+  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+  map.login '/login', :controller => 'sessions', :action => 'new'
+  map.register '/register', :controller => 'users', :action => 'create'
+  map.signup '/signup', :controller => 'users', :action => 'new'
+
+  map.resource :reader, :has_many => {:feeds => :articles} do |reader|
+    reader.resources :articles
+  end
+
+  map.resource :session
+  map.resources :users
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

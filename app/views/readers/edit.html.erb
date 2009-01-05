@@ -1,0 +1,12 @@
+<h1>Editing reader</h1>
+
+<% form_for(@reader) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @reader %> |
+<%= link_to 'Back', readers_path %>

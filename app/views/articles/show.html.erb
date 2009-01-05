@@ -1,0 +1,28 @@
+<p>
+  <b>Title:</b>
+  <%=h @article.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @article.content %>
+</p>
+
+<p>
+  <b>Modified at:</b>
+  <%=h @article.modified_at %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @article.url %>
+</p>
+
+<p>
+  <b>Feed:</b>
+  <%=h @article.feed_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>

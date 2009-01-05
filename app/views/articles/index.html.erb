@@ -1,0 +1,28 @@
+<h1>Listing articles</h1>
+
+<%= link_to 'Feeds', reader_feeds_path %> |
+<%= link_to 'New article', new_reader_feed_article_path(@feed) %>
+
+<table>
+  <tr>
+    <th>Modified at</th>
+    <th>Title</th>
+    <th>Url</th>
+    <th>Feed</th>
+  </tr>
+
+<% for article in @articles %>
+  <tr>
+    <td><%= distance_of_time_in_words_to_now article.modified_at if article.modified_at %></td>
+    <td><%=h article.title %></td>
+    <td><%=h article.url %></td>
+    <td><%=h article.feed.name %></td>
+    <td><%= link_to 'Show', reader_feed_article_path(@feed,article) %></td>
+    <td><%= link_to 'Edit', edit_reader_feed_article_path(@feed,article) %></td>
+    <td><%= link_to 'Destroy', reader_feed_article_path(@feed,article), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+

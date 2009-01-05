@@ -1,0 +1,43 @@
+<p>
+  <b>Name:</b>
+  <%=h @feed.name %>
+</p>
+
+<p>
+  <b>Modified at:</b>
+  <%=h @feed.modified_at %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @feed.url %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @feed.description %>
+</p>
+
+<p>
+  <b>Issued:</b>
+  <%=h @feed.issued %>
+</p>
+
+<p>
+  <b>Copyright:</b>
+  <%=h @feed.copyright %>
+</p>
+
+<p>
+  <b>Tagline:</b>
+  <%=h @feed.tagline %>
+</p>
+
+<p>
+  <b>Guid:</b>
+  <%=h @feed.guid %>
+</p>
+
+
+<%= link_to 'Edit', edit_feed_path(@feed) %> |
+<%= link_to 'Back', feeds_path %>

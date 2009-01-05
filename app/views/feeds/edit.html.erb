@@ -1,0 +1,44 @@
+<h1>Editing feed</h1>
+
+<% form_for(@feed) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :modified_at %><br />
+    <%= f.datetime_select :modified_at %>
+  </p>
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :issued %><br />
+    <%= f.text_field :issued %>
+  </p>
+  <p>
+    <%= f.label :copyright %><br />
+    <%= f.text_field :copyright %>
+  </p>
+  <p>
+    <%= f.label :tagline %><br />
+    <%= f.text_field :tagline %>
+  </p>
+  <p>
+    <%= f.label :guid %><br />
+    <%= f.text_field :guid %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @feed %> |
+<%= link_to 'Back', feeds_path %>
