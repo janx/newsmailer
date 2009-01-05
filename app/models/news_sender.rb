@@ -4,7 +4,7 @@ class NewsSender < ActionMailer::Base
     recipients user.email
     from "#{article.feed.name} <newsmailer@aiur.planet>"
     subject article.title
-    content_type article.content_type
+    content_type 'text/html'
 
     body :article => article
   end
