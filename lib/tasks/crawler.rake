@@ -33,11 +33,7 @@ namespace :crawler do
 
           a = Article.find_by_url(item.link)
           attrs = {:title => item.title, :content => content, :url => item.link, :modified_at => item.updated_time, :content_type => content_type}
-          if a.nil?
-            feed.articles.build attrs
-          elsif a.modified_at.blank? || (a.modified_at < item.updated_time)
-            a.update_attributes attrs
-          end
+          feed.articles.build attrs if a.nil?
         end
         # update feed modify time and save
         feed.modified_at = modified_at
@@ -56,7 +52,7 @@ namespace :crawler do
   desc "delivery news to users"
   task :run => :start do
     User.all.each do |user|
-      articles = Article.find_by_sql "select articles.* from articles inner join feeds on articles.feed_id = feeds.id inner join feeds_users on feeds.id = feeds_users.feed_id inner join users on feeds_users.user_id = users.id where users.id = #{user.id} and articles.updated_at > '#{user.delivered_at}'"
+      articles = Article.find_by_sql "select articles.* from articles inner join feeds on articles.feed_id = feeds.id inner join feeds_users on feeds.id = feeds_users.feed_id inner join users on feeds_users.user_id = users.id where users.id = #{user.id} and articles.created_at > '#{user.delivered_at}'"
       articles.each {|article| article.send_to user}
     end
   end
