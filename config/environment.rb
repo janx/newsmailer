@@ -77,7 +77,7 @@ Rails::Initializer.run do |config|
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :version => '>=2.0.6'
 end
 
-ENV['http_proxy'] = 'http://localhost:8118'
+#ENV['http_proxy'] = 'http://localhost:8118'
 
 require "smtp_tls"
 
