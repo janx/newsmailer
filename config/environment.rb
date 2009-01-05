@@ -78,3 +78,13 @@ Rails::Initializer.run do |config|
 end
 
 ENV['http_proxy'] = 'http://localhost:8118'
+
+require "smtp_tls"
+
+ActionMailer::Base.smtp_settings = {
+  :address => "smtp.gmail.com",
+  :port => 587,
+  :authentication => :plain,
+  :user_name => "jan.h.xie.bot@gmail.com",
+  :password => 'jan.h.xie'
+}
