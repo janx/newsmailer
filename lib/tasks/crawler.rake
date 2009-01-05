@@ -1,10 +1,16 @@
+require 'timeout'
+
 namespace :crawler do
   desc "update all feeds"
   task :start => :environment do
     Feed.all.each do |feed|
       puts "Fetching #{feed.name} ..."
       begin
-        result = FeedParser.parse feed.url
+        $result = nil
+        Timeout::timeout(30) do
+          $result = FeedParser.parse feed.url
+        end
+
         time_ary = result.modified || result.channel.updated_parsed
         modified_at = Time.utc(*time_ary[0,8])
         next if feed.modified_at && feed.modified_at >= modified_at
@@ -32,10 +38,12 @@ namespace :crawler do
         feed.modified_at = modified_at
         feed.name = result.channel.title
         feed.save
+      rescue Timeout::Error
+        puts "Timeout when fetching feed #{feed.url}"
       rescue RuntimeError, Exception => e
         puts e
         puts e.backtrace
-        puts "Error: can't fetch feed #{feed.url}"
+        puts "Error: can't parse feed #{feed.url}"
       end
     end
   end
