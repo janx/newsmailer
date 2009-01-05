@@ -9,19 +9,22 @@ namespace :crawler do
         next if feed.modified_at && feed.modified_at >= modified_at
 
         for item in result.items
-          content = if item.summary_detail
-                      # rss 2.0
-                      item.summary_detail.value
-                    elsif item.content[0]
-                      # atom
-                      item.content[0].value
-                    end
+          if item.summary_detail
+            # rss 2.0
+            content = item.summary_detail.value
+            content_type = item.summary_detail.type
+          elsif item.content[0]
+            # atom
+            content = item.content[0].value
+            content_type = item.content[0].type
+          end
 
           a = Article.find_by_url(item.link)
+          attrs = {:title => item.title, :content => content, :url => item.link, :modified_at => item.updated_time, :content_type => content_type}
           if a.nil?
-            feed.articles.build :title => item.title, :content => content, :url => item.link, :modified_at => item.updated_time
+            feed.articles.build attrs
           elsif a.modified_at.blank? || (a.modified_at < item.updated_time)
-            a.update_attributes :title => item.title, :content => content, :modified_at => item.updated_time
+            a.update_attributes attrs
           end
         end
         # update feed modify time and save
