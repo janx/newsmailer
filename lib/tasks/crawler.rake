@@ -22,10 +22,13 @@ namespace :crawler do
             # rss 2.0
             content = item.summary_detail.value
             content_type = item.summary_detail.type
-          elsif item.content[0]
+          elsif item.content && item.content[0]
             # atom
             content = item.content[0].value
             content_type = item.content[0].type
+          elsif item.title_detail
+            content = item.title_detail.value
+            content_type = item.title_detail.type
           end
 
           a = Article.find_by_url(item.link)
