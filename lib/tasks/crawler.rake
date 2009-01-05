@@ -11,9 +11,11 @@ namespace :crawler do
           $result = FeedParser.parse feed.url
         end
 
+        next if result.status == '404'
+
         time_ary = result.modified || result.channel.updated_parsed
-        modified_at = Time.utc(*time_ary[0,8])
-        next if feed.modified_at && feed.modified_at >= modified_at
+        modified_at = time_ary && Time.utc(*time_ary[0,8])
+        next if !modified_at.nil? && feed.modified_at && feed.modified_at >= modified_at
 
         for item in result.items
           if item.summary_detail
