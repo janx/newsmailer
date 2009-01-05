@@ -18,14 +18,14 @@ namespace :crawler do
         next if !modified_at.nil? && feed.modified_at && feed.modified_at >= modified_at
 
         for item in $result.items
-          if item.summary_detail
-            # rss 2.0
-            content = item.summary_detail.value
-            content_type = item.summary_detail.type
-          elsif item.content && item.content[0]
+          if item.content && item.content[0]
             # atom
             content = item.content[0].value
             content_type = item.content[0].type
+          elsif item.summary_detail
+            # rss 2.0
+            content = item.summary_detail.value
+            content_type = item.summary_detail.type
           elsif item.title_detail
             content = item.title_detail.value
             content_type = item.title_detail.type
