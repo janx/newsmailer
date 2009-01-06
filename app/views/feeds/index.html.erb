@@ -6,6 +6,7 @@
 
 <table>
   <tr>
+    <th>ID</th>
     <th width='200'>Modified at</th>
     <th>Name</th>
     <th>Url</th>
@@ -15,6 +16,7 @@
 
 <% for feed in @feeds %>
   <tr>
+    <td><%= feed.id %></td>
     <td><%= "#{distance_of_time_in_words_to_now feed.modified_at} ago" if feed.modified_at %></td>
     <td><%=h feed.name %></td>
     <td><%=h feed.url %></td>
