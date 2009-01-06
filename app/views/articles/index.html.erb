@@ -1,10 +1,11 @@
-<h1>Listing articles</h1>
+<h1>Articles of <%= @feed.name %></h1>
 
 <%= link_to 'Feeds', reader_feeds_path %> |
 <%= link_to 'New article', new_reader_feed_article_path(@feed) %>
 
 <table>
   <tr>
+    <th>ID</th>
     <th>Modified at</th>
     <th>Title</th>
     <th>Url</th>
@@ -13,6 +14,7 @@
 
 <% for article in @articles %>
   <tr>
+    <td><%= article.id %></th>
     <td><%= distance_of_time_in_words_to_now article.modified_at if article.modified_at %></td>
     <td><%=h article.title %></td>
     <td><%=h article.url %></td>

@@ -1,6 +1,6 @@
 <h1>Editing article</h1>
 
-<% form_for(@article) do |f| %>
+<% form_for :article, @article, :url => reader_feed_article_path(@feed,@article), :html => {:method => :put} do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -28,5 +28,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @article %> |
-<%= link_to 'Back', articles_path %>
+<%= link_to 'Show', reader_feed_article_path(@feed,@article) %> |
+<%= link_to 'Back', reader_feed_articles_path(@feed) %>

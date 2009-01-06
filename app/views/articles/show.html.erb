@@ -5,7 +5,7 @@
 
 <p>
   <b>Content:</b>
-  <%=h @article.content %>
+  <%= @article.content %>
 </p>
 
 <p>
@@ -20,9 +20,9 @@
 
 <p>
   <b>Feed:</b>
-  <%=h @article.feed_id %>
+  <%=h @article.feed.name %>
 </p>
 
 
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<%= link_to 'Edit', edit_reader_feed_article_path(@feed,@article) %> |
+<%= link_to 'Back', reader_feed_articles_path(@feed) %>
