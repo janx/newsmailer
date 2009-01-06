@@ -1,5 +1,5 @@
-
 namespace :crawler do
+
   desc "update all feeds"
   task :start => :environment do
     Feed.all.each do |feed|
@@ -8,8 +8,13 @@ namespace :crawler do
     end
   end
 
-  desc "delivery news to users"
-  task :run => :start do
+  desc "deliver new articles"
+  task :deliver => :environment { deliver }
+
+  desc "update all feeds and delivery news to users"
+  task :run => :start { delivery }
+
+  def deliver
     User.all.each do |user|
       user.news.each do |article|
         article.send_to user
@@ -17,4 +22,5 @@ namespace :crawler do
       user.update_attribute :delivered_at, Time.now
     end
   end
+
 end
