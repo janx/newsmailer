@@ -38,6 +38,15 @@
   <%=h @feed.guid %>
 </p>
 
+<p>
+  <b>Prefetch:</b>
+  <%=h @feed.prefetch %>
+</p>
+
+<p>
+  <b>Prefetch URL Pattern:</b>
+  <%=h @feed.prefetch_url_pattern %>
+</p>
 
 <%= link_to 'Edit', edit_reader_feed_path(@feed) %> |
 <%= link_to 'Back', reader_feeds_path %>

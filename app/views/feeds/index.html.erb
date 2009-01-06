@@ -11,6 +11,7 @@
     <th>Name</th>
     <th>Url</th>
     <th>Guid</th>
+    <th>Prefetch?</th>
     <th width='400'>&nbsp;</th>
   </tr>
 
@@ -21,6 +22,7 @@
     <td><%=h feed.name %></td>
     <td><%=h feed.url %></td>
     <td><%=h feed.guid %></td>
+    <td><%= feed.prefetch %></td>
     <td>
       <%= link_to 'Articles', reader_feed_articles_path(feed) %> 
       <%= link_to 'Show', reader_feed_path(feed) %> 

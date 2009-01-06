@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090105160106) do
+ActiveRecord::Schema.define(:version => 20090106134128) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20090105160106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "content_type"
+    t.text     "prefetched"
   end
 
   create_table "feeds", :force => true do |t|
@@ -33,6 +34,8 @@ ActiveRecord::Schema.define(:version => 20090105160106) do
     t.string   "guid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "prefetch"
+    t.string   "prefetch_url_pattern"
   end
 
   create_table "feeds_users", :id => false, :force => true do |t|

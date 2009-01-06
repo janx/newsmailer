@@ -1,4 +1,5 @@
 require 'timeout'
+require 'open-uri'
 
 class Feed < ActiveRecord::Base
   has_many :articles
@@ -38,7 +39,7 @@ class Feed < ActiveRecord::Base
   def analyzer(result)
     for entry in result.entries
       ct, ctnt = get_content(entry)
-      options = {:title => entry.title, :content_type => ct, :modified_at => entry.updated_time, :url => entry.link, :content => ctnt, :feed_id => id}
+      options = {:title => entry.title, :content_type => ct, :modified_at => entry.updated_time, :url => entry.link, :content => ctnt, :feed_id => id, :prefetched => prefetched(ctnt)}
       Article.insert options
     end
   end
@@ -49,6 +50,25 @@ class Feed < ActiveRecord::Base
     elsif entry.summary_detail
       [entry.summary_detail.type, entry.summary_detail.value]
     end
+  end
+
+  def prefetched(origin_html)
+    return nil unless prefetch?
+    result = ""
+    origin_html.scan(Regexp.new(prefetch_url_pattern)).flatten.each do |prefetch_url|
+      puts "pre-fetching article #{prefetch_url} ..."
+      begin
+        Timeout::timeout(30) do
+          open(prefetch_url) do |page|
+            content = page.read
+            result << "<h2><a href='#{prefetch_url}'>Prefetched article</a><h2>" << content
+          end
+        end
+      rescue Timeout::Error
+        puts "Timeout when pre-fetching #{prefetch_url}"
+      end
+    end
+    result
   end
 
 end

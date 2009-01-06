@@ -36,6 +36,14 @@
     <%= f.text_field :guid %>
   </p>
   <p>
+    <%= f.label :prefetch %><br />
+    <%= f.check_box :prefetch %>
+  </p>
+  <p>
+    <%= f.label :prefetch_url_pattern %><br />
+    <%= f.text_field :prefetch_url_pattern %>
+  </p>
+  <p>
     <%= f.submit "Update" %>
   </p>
 <% end %>
