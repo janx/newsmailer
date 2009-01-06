@@ -11,7 +11,10 @@ namespace :crawler do
   desc "delivery news to users"
   task :run => :start do
     User.all.each do |user|
-      user.news.each {|article| article.send_to user}
+      user.news.each do |article|
+        article.send_to user
+      end
+      user.update_attribute :delivered_at, Time.now
     end
   end
 end
