@@ -9,10 +9,14 @@ namespace :crawler do
   end
 
   desc "deliver new articles"
-  task :deliver => :environment { deliver }
+  task :deliver => :environment do 
+    deliver
+  end
 
   desc "update all feeds and delivery news to users"
-  task :run => :start { delivery }
+  task :run => :start do 
+    delivery
+  end
 
   def deliver
     User.all.each do |user|
