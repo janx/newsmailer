@@ -5,6 +5,8 @@ class Feed < ActiveRecord::Base
   has_many :articles
   has_and_belongs_to_many :users
 
+  before_save :unescape_regexp
+
   def refresh
     Timeout::timeout(35) do
       @result = FeedParser.parse url
@@ -69,6 +71,10 @@ class Feed < ActiveRecord::Base
       end
     end
     result
+  end
+
+  def unescape_regexp
+    self.prefetch_url_pattern = prefetch_url_pattern.gsub("\\\\","\\")
   end
 
 end
