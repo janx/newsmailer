@@ -1,6 +1,6 @@
 == Complaints ==
 
-I prefer read news in console - no pictures floating around to attract me away there. I also the convinient provided by mutt, as Zed Shaw <http://www.zedshaw.com/rants/i_want_the_mutt_of_feed_readers.html>. Zed finally find a mutt-like console news reader named newsbeuter, while I choose to write my own. The reasons I don't like newsbeuter (though I think it's good enough) are:
+I prefer read news in console - no pictures floating around to attract me away there. I also love the convinient provided by mutt, as Zed Shaw <http://www.zedshaw.com/rants/i_want_the_mutt_of_feed_readers.html>. Zed finally find a mutt-like console news reader named newsbeuter, while I choose to write my own. The reasons I don't like newsbeuter (though I think it's good enough) are:
 
   * It's not 100% like mutt. The only program 100% like mutt is mutt.
   * It can't be run as a daemon. I need to put it in screen to keep it running. Why nobody make sth. like mutt + msmtp?
