@@ -20,14 +20,18 @@ class Feed < ActiveRecord::Base
     self.update_attributes :modified_at => timestamp, :name => @result.feed.title, :description => @result.feed.description
 
   rescue Timeout::Error
-    puts "Timeout when fetching feed #{url}"
+    puts "Timeout when fetching #{self}"
   rescue Exception, RuntimeError
     puts $!.backtrace
-    puts "Error: can't parse this feed."
+    puts "Error: can't parse #{self}"
   end
 
   def raw
     @result
+  end
+
+  def to_s
+    "#{name} <#{url}>"
   end
 
   private
