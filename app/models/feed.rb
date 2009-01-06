@@ -12,8 +12,7 @@ class Feed < ActiveRecord::Base
 
     timestamp = @result.feed.updated_parsed || @result.feed.date_parsed || @result.updated
     timestamp &&= Time.utc(*timestamp[0,8])
-    raise "Can't find timestamp for this feed" if timestamp.blank?
-    return true if modified_at && (modified_at >= timestamp)
+    return true if timestamp && modified_at && (modified_at >= timestamp)
 
     analyzer @result
 
