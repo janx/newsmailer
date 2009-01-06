@@ -1,0 +1,35 @@
+== Complaints ==
+
+I prefer read news in console - no pictures floating around to attract me away there. I also the convinient provided by mutt, as Zed Shaw <http://www.zedshaw.com/rants/i_want_the_mutt_of_feed_readers.html>. Zed finally find a mutt-like console news reader named newsbeuter, while I choose to write my own. The reasons I don't like newsbeuter (though I think it's good enough) are:
+
+  * It's not 100% like mutt. The only program 100% like mutt is mutt.
+  * It can't be run as a daemon. I need to put it in screen to keep it running. Why nobody make sth. like mutt + msmtp?
+  * The most important, it crashes every hour on my machine.
+
+== NewsMailer ==
+
+So NewsMailer comes. I build it in a rails framework only because Rails integrates many useful tools like rake and ActiveRecord. NewsMailer will be easily ported to work without Rails (not now, I just want to read my news asap). Another advantage is with Rails I can build a Web UI for NewsMailer, so I can run it as daemon on remote machine, control it remotely.
+
+NewsMailer is in heavy development, but good enough to use now.
+
+Features I think interesting:
+
+  * Import from newsbeuter's urls file.
+  * Prefetch link in articles of Programming Reddit channel. Of course you can define your own prefetch rules for /. or YC.
+
+Features I plan to implement:
+
+  * Concurrent fetch.
+  * Firefox integration.
+  * Import from OPML
+  * Maybe you can suggest some more.
+
+== Howto ==
+
+  1. Clone it
+  2. Modify config/environment.rb
+  3. rake db:create && rake db:migrate
+  4. add 'rake crawler:run' to your crontab
+  5. you can set your prefetch rules in web UI. ( for Reddit you can set this in its 'Prefetch URL Pattern field: <a href="([a-z\-_\/0-9:.?=]+)">\[link\]<\/a> )
+
+Jan <jan dot h dot xie at gmail dot com>
