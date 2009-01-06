@@ -15,7 +15,7 @@ namespace :crawler do
 
   desc "update all feeds and delivery news to users"
   task :run => :start do 
-    delivery
+    deliver
   end
 
   def deliver
