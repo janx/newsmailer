@@ -57,7 +57,7 @@ class Feed < ActiveRecord::Base
   def prefetched(origin_html)
     return nil unless prefetch?
     result = ""
-    origin_html.scan(Regexp.new(prefetch_url_pattern)).flatten.each do |prefetch_url|
+    origin_html.scan(Regexp.new(prefetch_url_pattern, Regexp::IGNORECASE)).flatten.each do |prefetch_url|
       puts "pre-fetching article #{prefetch_url} ..."
       begin
         Timeout::timeout(30) do
