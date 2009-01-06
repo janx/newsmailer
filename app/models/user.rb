@@ -49,8 +49,8 @@ class User < ActiveRecord::Base
     write_attribute :email, (value ? value.downcase : nil)
   end
 
-  protected
-    
-
-
+  def news
+      Article.find_by_sql "select articles.* from articles inner join feeds on articles.feed_id = feeds.id inner join feeds_users on feeds.id = feeds_users.feed_id inner join users on feeds_users.user_id = users.id where users.id = #{id} and articles.created_at > '#{delivered_at}'"
+  end
+  
 end

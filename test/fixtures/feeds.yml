@@ -1,6 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
+  id: 1
   name: MyString
   modified_at: 2009-01-05 16:57:51
   url: MyString
@@ -11,6 +12,7 @@ one:
   guid: MyString
 
 two:
+  id: 2
   name: MyString
   modified_at: 2009-01-05 16:57:51
   url: MyString

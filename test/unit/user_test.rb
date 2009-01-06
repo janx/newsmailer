@@ -8,6 +8,10 @@ class UserTest < ActiveSupport::TestCase
 
   should_have_and_belong_to_many :feeds
 
+  test "should find new articles" do
+    assert_equal 1, users(:quentin).news.size
+  end
+
   def test_should_create_user
     assert_difference 'User.count' do
       user = create_user
