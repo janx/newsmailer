@@ -74,7 +74,7 @@ class Feed < ActiveRecord::Base
   end
 
   def unescape_regexp
-    self.prefetch_url_pattern = prefetch_url_pattern.gsub("\\\\","\\")
+    self.prefetch_url_pattern = prefetch_url_pattern.gsub("\\\\","\\") unless self.prefetch_url_pattern.blank?
   end
 
 end
