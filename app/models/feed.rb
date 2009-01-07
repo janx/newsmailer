@@ -5,7 +5,7 @@ class Feed < ActiveRecord::Base
   has_many :articles
   has_and_belongs_to_many :users
 
-  before_save :unescape_regexp
+  before_save :unescape_regexp, :unless => Proc.new {|feed| feed.prefetch_url_pattern.blank?}
 
   def refresh
     Timeout::timeout(35) do
@@ -74,7 +74,7 @@ class Feed < ActiveRecord::Base
   end
 
   def unescape_regexp
-    self.prefetch_url_pattern = prefetch_url_pattern.gsub("\\\\","\\") unless self.prefetch_url_pattern.blank?
+    self.prefetch_url_pattern = prefetch_url_pattern.gsub("\\\\","\\")
   end
 
 end
