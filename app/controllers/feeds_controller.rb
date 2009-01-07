@@ -46,6 +46,7 @@ class FeedsController < ApplicationController
 
     respond_to do |format|
       if @feed.save
+        current_user.feeds.reload
         flash[:notice] = 'Feed was successfully created.'
         format.html { redirect_to reader_feed_path(@feed) }
         format.xml  { render :xml => @feed, :status => :created, :location => @feed }
