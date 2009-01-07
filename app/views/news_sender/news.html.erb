@@ -1,10 +1,14 @@
-<br/><br/><br/>
-<h1 class='text-align:left'>[<%= @article.feed.name %>] <%= @article.title %></h1>
+<p>&nbsp;</p>
+<br/><br/>
+<p><b>[<%= @article.feed.name %>] <%= @article.title %></b></p>
+<p>Published at <%= @article.modified_at %></p>
+<h3>
 <hr/>
 <div>
   <%= @article.content %>
   <h5>source: <%= link_to @article.title, @article.url %></h5>
 </div>
+<hr/>
 <div>
   <%= @article.prefetched %>
 </div>
