@@ -9,17 +9,18 @@ class Feed < ActiveRecord::Base
 
   def refresh
     Timeout::timeout(35) do
-      @result = FeedParser.parse url
+      @feed = FeedFormalizer.new FeedParser.parse(url)
     end
-    return false if @result.status == '404'
+    return false if @feed.status == '404'
 
-    timestamp = @result.feed.updated_parsed || @result.feed.date_parsed || @result.updated
-    timestamp &&= Time.utc(*timestamp[0,8])
+    timestamp = Time.utc(*@feed.timestamp[0,8]) if @feed.timestamp
     return true if timestamp && modified_at && (modified_at >= timestamp)
 
-    analyzer @result
+    for entry in @feed.entries
+      Article.insert :title => entry.title, :content_type => entry.content_type, :modified_at => entry.modified_at, :url => entry.url, :content => entry.content, :feed_id => id, :prefetched => prefetched(entry.content)
+    end
 
-    self.update_attributes :modified_at => timestamp, :name => @result.feed.title, :description => @result.feed.description
+    self.update_attributes :modified_at => timestamp, :name => @feed.title, :description => @feed.description
 
   rescue Timeout::Error
     puts "Timeout when fetching #{self}"
@@ -29,7 +30,7 @@ class Feed < ActiveRecord::Base
   end
 
   def raw
-    @result
+    @feed.raw
   end
 
   def to_s
@@ -37,22 +38,6 @@ class Feed < ActiveRecord::Base
   end
 
   private
-
-  def analyzer(result)
-    for entry in result.entries
-      ct, ctnt = get_content(entry)
-      options = {:title => entry.title, :content_type => ct, :modified_at => entry.updated_time, :url => entry.link, :content => ctnt, :feed_id => id, :prefetched => prefetched(ctnt)}
-      Article.insert options
-    end
-  end
-
-  def get_content(entry)
-    if entry.content && entry.content.first
-      [entry.content.first.type, entry.content.first.value]
-    elsif entry.summary_detail
-      [entry.summary_detail.type, entry.summary_detail.value]
-    end
-  end
 
   def prefetched(origin_html)
     return nil unless prefetch?
