@@ -25,7 +25,7 @@ class Feed < ActiveRecord::Base
   rescue Timeout::Error
     puts "Timeout when fetching #{self}"
   rescue ActiveRecord::ConnectionTimeoutError
-    puts "Timeout when acquiring a connection to db"
+    puts "Timeout when acquiring a connection to db: #{$!}"
   rescue Exception, RuntimeError
     puts $!.backtrace
     puts "Error: can't parse #{self}"
