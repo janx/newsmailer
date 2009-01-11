@@ -81,6 +81,8 @@ end
 
 #require "smtp_tls" # uncomment this if you use gmail smtp server
 
+REFRESH_THREADS = 5
+
 ActionMailer::Base.smtp_settings = {
   :address => "your smtp server",
   :port => 587,
