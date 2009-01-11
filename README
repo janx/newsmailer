@@ -10,7 +10,7 @@ I prefer read news in console - no pictures floating around to attract me away t
 
 So NewsMailer comes. I build it in a rails framework only because Rails integrates many useful tools like rake and ActiveRecord. NewsMailer will be easily ported to work without Rails (not now, I just want to read my news asap). Another advantage is with Rails I can build a Web UI for NewsMailer, so I can run it as daemon on remote machine, control it remotely.
 
-NewsMailer is in heavy development, but good enough to use now. When running it will read updates from your feeds timely (according to your crontab setting), sending new articles to your inbox, and you can use mutt to read then.
+NewsMailer is in development, but good enough to use now. When running it will read updates from your feeds timely (according to your crontab setting), sending new articles to your inbox, and you can use mutt to read then.
 
 Features I think interesting:
 
