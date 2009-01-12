@@ -35,7 +35,7 @@ class Crawler
     return [feeds] if num <= 1 || num >= feeds.size
     n = feeds.size/num
     sliced = []
-    0.upto(n) {|i| sliced << feeds[i*num,num] }
+    0.upto(num) {|i| sliced << feeds[i*n,n] }
     sliced
   end
 
