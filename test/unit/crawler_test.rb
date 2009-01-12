@@ -13,7 +13,6 @@ class CrawlerTest < ActiveSupport::TestCase
     threads = []
     1.upto(5) { |i|
       threads << Thread.new { 
-        sleep 3
         1.upto(10) { |j|
           Article.insert :title => "a_#{i}_#{j}", :content_type => 'text/html', :modified_at => Time.now, :url => "http://www.google.com/?x=#{i}&y=#{j}", :content => "#{i} #{j}", :feed_id => 1
         }
