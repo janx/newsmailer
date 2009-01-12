@@ -90,3 +90,19 @@ ActionMailer::Base.smtp_settings = {
   :user_name => "your username",
   :password => 'your password'
 }
+
+# monkey patch
+# http://coderrr.wordpress.com/2009/01/08/activerecord-threading-issues-and-resolutions/
+class << Thread  
+  alias orig_new new  
+  def new  
+    orig_new do  
+      yield  
+      t = Thread.current  
+      Thread.orig_new do  
+        sleep 0.1  while t.alive?  
+        ActiveRecord::Base.connection_pool.clear_stale_cached_connections!  
+      end  
+    end  
+  end  
+end  
