@@ -15,11 +15,11 @@ NewsMailer is in development, but good enough to use now. When running it will r
 Features I think interesting:
 
   * Import from newsbeuter's urls file.
+  * Concurrent fetch.
   * Prefetch link in articles of Programming Reddit channel. Of course you can define your own prefetch rules for /. or YC.
 
 Features I plan to implement:
 
-  * Concurrent fetch.
   * Firefox integration.
   * Import from OPML
   * Maybe you can suggest some more.
