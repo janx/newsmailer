@@ -95,9 +95,9 @@ ActionMailer::Base.smtp_settings = {
 # http://coderrr.wordpress.com/2009/01/08/activerecord-threading-issues-and-resolutions/
 class << Thread  
   alias orig_new new  
-  def new  
-    orig_new do  
-      yield  
+  def new(*args) 
+    orig_new(*args) do |*args| 
+      yield *args 
       t = Thread.current  
       Thread.orig_new do  
         sleep 0.1  while t.alive?  
