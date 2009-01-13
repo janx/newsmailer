@@ -5,6 +5,8 @@ class Feed < ActiveRecord::Base
   has_many :articles
   has_and_belongs_to_many :users
 
+  validates_uniqueness_of :url
+
   before_save :unescape_regexp, :unless => Proc.new {|feed| feed.prefetch_url_pattern.blank?}
 
   def refresh

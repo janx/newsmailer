@@ -8,6 +8,11 @@ class FeedTest < ActiveSupport::TestCase
     test_feed File.join(RAILS_ROOT, "/test/fixtures/reddit.rss")
   end
 
+  test "it should have unique url" do
+    Feed.create :url => 'http://www.fastcompany.com/rss.xml'
+    assert !Feed.new(:url => 'http://www.fastcompany.com/rss.xml').valid?
+  end
+
   private
 
   def test_feed url
