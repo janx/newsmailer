@@ -74,6 +74,7 @@ Rails::Initializer.run do |config|
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
   config.gem 'sqlite3-ruby'
+  config.gem 'xmlparser'
   config.gem 'rfeedparser', :version => '>=0.9.951'
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :version => '>=2.0.6', :source => "http://gems.github.com"
 end
