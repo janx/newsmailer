@@ -72,9 +72,9 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-  
+
   config.gem 'rfeedparser', :version => '>=0.9.951'
-  config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :version => '>=2.0.6'
+  config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :version => '>=2.0.6', :source => "http://gems.github.com"
 end
 
 #ENV['http_proxy'] = 'http://localhost:8118'
@@ -93,16 +93,16 @@ ActionMailer::Base.smtp_settings = {
 
 # monkey patch
 # http://coderrr.wordpress.com/2009/01/08/activerecord-threading-issues-and-resolutions/
-class << Thread  
-  alias orig_new new  
-  def new(*args) 
-    orig_new(*args) do |*args| 
-      yield *args 
-      t = Thread.current  
-      Thread.orig_new do  
-        sleep 0.1  while t.alive?  
-        ActiveRecord::Base.connection_pool.clear_stale_cached_connections!  
-      end  
-    end  
-  end  
-end  
+class << Thread
+  alias orig_new new
+  def new(*args)
+    orig_new(*args) do |*args|
+      yield *args
+      t = Thread.current
+      Thread.orig_new do
+        sleep 0.1  while t.alive?
+        ActiveRecord::Base.connection_pool.clear_stale_cached_connections!
+      end
+    end
+  end
+end
