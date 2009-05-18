@@ -73,6 +73,7 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
+  config.gem 'sqlite3-ruby'
   config.gem 'rfeedparser', :version => '>=0.9.951'
   config.gem 'thoughtbot-shoulda', :lib => 'shoulda', :version => '>=2.0.6', :source => "http://gems.github.com"
 end
