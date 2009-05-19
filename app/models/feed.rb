@@ -9,6 +9,8 @@ class Feed < ActiveRecord::Base
 
   before_save :unescape_regexp, :unless => Proc.new {|feed| feed.prefetch_url_pattern.blank?}
 
+  PREFETCH_BLACKLIST = /(.pdf)|(.jpg)|(.gif)|(.png)|(.mp3)|(.mp4)|(.flv)|(.mov)$/
+
   def refresh
     Timeout::timeout(35) do
       @feed = FeedFormalizer.new FeedParser.parse(url)
@@ -29,6 +31,7 @@ class Feed < ActiveRecord::Base
   rescue ActiveRecord::ConnectionTimeoutError
     puts "Timeout when acquiring a connection to db: #{$!}"
   rescue Exception, RuntimeError
+    puts $!.class.name
     puts $!.backtrace
     puts "Error: can't parse #{self}"
   end
@@ -47,6 +50,10 @@ class Feed < ActiveRecord::Base
     return nil unless prefetch?
     result = ""
     origin_html.scan(Regexp.new(prefetch_url_pattern, Regexp::IGNORECASE)).flatten.each do |prefetch_url|
+      if prefetch_url =~ PREFETCH_BLACKLIST
+        puts "skip pre-fetching #{prefetch_url}"
+        return
+      end
       puts "pre-fetching article #{prefetch_url} ..."
       begin
         Timeout::timeout(30) do
@@ -57,6 +64,8 @@ class Feed < ActiveRecord::Base
         end
       rescue Timeout::Error
         puts "Timeout when pre-fetching #{prefetch_url}"
+      rescue
+        puts "prefetch failed: #{$!}"
       end
     end
     result

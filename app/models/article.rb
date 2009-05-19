@@ -10,6 +10,8 @@ class Article < ActiveRecord::Base
     else
       Article.create options
     end
+  rescue
+    puts "failed to insert article: #{$!}"
   end
 
   def send_to(user)
